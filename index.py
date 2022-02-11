@@ -42,9 +42,34 @@ def edit_clientes():
 def delete_clintes():
     if request.method == "GET":
         id = str(request.args.get("id"))
-        print(id)
         eliminar_cliente(id)
     return redirect(url_for('clientes'))
+
+######################################################################################################################### Clientes: Mostrar y Añadir
+# Actividades: Mostrar y Añadir
+@app.route('/actividades', methods=["GET", "POST"])
+def actividades():
+    actividades = listar_actividades()
+    if request.method == "POST":
+        anadir_actividad(request)
+
+    return render_template('actividades.html', actividades=actividades)
+
+# Actividades: Modificar
+@app.route('/actividades/edit', methods=["GET", "POST"])
+def edit_actividades():
+    if request.method == "POST":
+        modificar_actividad(request)
+
+    return redirect(url_for('actividades'))
+
+# Actividades: Eliminar
+@app.route('/actividades/delete')
+def delete_actividades():
+    if request.method == "GET":
+        id = str(request.args.get("id"))
+        eliminar_actividades(id)
+    return redirect(url_for('actividades'))
 
 ########################################################################################################################
 # Informes: Mostrar
