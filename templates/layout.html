@@ -29,6 +29,10 @@
                         <a class="nav-link {% if request.path == "/" %}active{% endif %}" aria-current="page"
                            href="/"><i class="fas fa-thumbs-up"></i>&nbsp;Oportunidades</a>
                     </li>
+                <li class="nav-item">
+                        <a class="nav-link {% if request.path == "/actividades" %}active{% endif %}"
+                           href="{{ url_for('actividades') }}"><i class="fa-solid fa-chess-knight"></i>&nbsp;Actividades</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == "/clientes" %}active{% endif %}"
                            href="{{ url_for('clientes') }}"><i class="fas fa-users"></i>&nbsp;Clientes</a>
