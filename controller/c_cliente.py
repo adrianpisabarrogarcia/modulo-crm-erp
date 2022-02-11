@@ -4,12 +4,12 @@ clientes = []
 
 
 # Método que dice cual es el próximo id para generar un nuevo cliente
-def getNextId(clientes):
+def getNextId():
     return len(clientes) + 1
 
 # Método para agregar un nuevo cliente
 def anadir_cliente(request):
-    id = str(getNextId(clientes))
+    id = str(getNextId())
     nombre = str(request.form.get("nombre"))
     telefono = str(request.form.get("telefono"))
     web = str(request.form.get("web"))

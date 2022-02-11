@@ -16,7 +16,7 @@
                         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Odei" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefono" class="form-label">Telefono</label>
+                        <label for="telefono" class="form-label">Télefono</label>
                         <input type="number" maxlength="8" class="form-control" id="telefono" name="telefono"
                                placeholder="688452312" required>
                     </div>
@@ -61,7 +61,7 @@
                     <tr>
                         <th scope="col" class="text-success">Id</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Telefono</th>
+                        <th scope="col">Teléfono</th>
                         <th scope="col">Correo electrónico</th>
                         <th scope="col">Web</th>
                         <th scope="col">Dirección</th>
@@ -123,7 +123,7 @@
                                        placeholder="Odei" required>
                             </div>
                             <div class="mb-3">
-                                <label for="telefono-modificar" class="form-label">Telefono</label>
+                                <label for="telefono-modificar" class="form-label">Teléfono</label>
                                 <input type="number" maxlength="8" class="form-control" id="telefono-modificar"
                                        name="telefono-modificar"
                                        placeholder="688452312" required>
@@ -167,19 +167,7 @@
         </div>
     </div>
 
-    <script>
-        function abrirModalModificarUsuario(id, nombre, telefono, email, web, direccion, ciudad) {
-            $('.modal-body #id-modificar').val(id);
-            $('.modal-body #nombre-modificar').val(nombre);
-            $('.modal-body #telefono-modificar').val(telefono);
-            $('.modal-body #email-modificar').val(email);
-            $('.modal-body #web-modificar').val(web);
-            $('.modal-body #direccion-modificar').val(direccion);
-            $('.modal-body #ciudad-modificar').val(ciudad);
-            //$('#modal-modificar').modal('show');
-
-        }
-    </script>
+    <script src="../static/js/clientes.js"></script>
 
 
 {% endblock %}

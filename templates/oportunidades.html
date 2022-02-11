@@ -1,5 +1,162 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Oportunidades</h1>
+    <h1>Oportunidades</h1>
+
+    <div class="container">
+        <div class="card mt-3">
+            <h5 class="card-header"><i class="fa-solid fa-thumbs-up"></i>&nbsp;Añadir oportunidad</h5>
+            <form action="/oportunidades" method="post">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6 pt-2 pb-2">
+                                <button type="button" class="btn btn-secondary w-100"><i
+                                        class="fa-solid fa-dice-five"></i>&nbsp;Añadir actividades
+                                </button>
+                            </div>
+                            <div class="col-md-6 pt-2 pb-2">
+                                <button type="button" class="btn btn-secondary w-100"><i class="fa-solid fa-users"></i>&nbsp;Añadir
+                                    clientes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="etapa" class="form-label">Etapa</label>
+                        <select class="form-select" aria-label="Selecciona una etapa..." id="etapa">
+                            <option value="nuevo" selected>Nuevo</option>
+                            <option value="calificado">Calificado</option>
+                            <option value="propuesta">Propuesta</option>
+                            <option value="ganada">Ganada</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="prioridad" class="form-label">Prioridad</label>
+                        <select class="form-select" aria-label="Selecciona una prioridad..." id="prioridad">
+                            <option value="baja" class="bg-success text-white" selected>Baja</option>
+                            <option value="media" class="bg-warning text-dark">Media</option>
+                            <option value="alta" class="bg-danger text-white">Alta</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Importe en €:</label>
+                        <input type="number" class="form-control" id="email" name="email"
+                               placeholder="42000,00"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus-circle"></i>&nbsp;Añadir
+                            oportunidad
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="card mt-3">
+            <h5 class="card-header"><i class="fa-solid fa-eye"></i>&nbsp;Ver oportunidades</h5>
+            <div class="card-body">
+                <div class="pt-2 pb-4">
+                    <u>Etapas:</u>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="nuevo-tab" data-bs-toggle="tab" data-bs-target="#nuevo"
+                                type="button" role="tab" aria-controls="nuevo" aria-selected="true">Nuevo
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="calificado-tab" data-bs-toggle="tab" data-bs-target="#calificado"
+                                type="button" role="tab" aria-controls="calificado" aria-selected="false">Calificado
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="propuesta-tab" data-bs-toggle="tab" data-bs-target="#propuesta"
+                                type="button" role="tab" aria-controls="propuesta" aria-selected="false">Propuesta
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="ganada-tab" data-bs-toggle="tab" data-bs-target="#ganada"
+                                type="button" role="tab" aria-controls="ganada" aria-selected="false">Ganada
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="nuevo" role="tabpanel" aria-labelledby="nuevo-tab">
+                        <!-- Nuevo -->
+                        {% set hay_nuevo = false %}
+                        {% if oportunidades %}
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Ver actividades</th>
+                                        <th>Ver clientes</th>
+                                        <th>Prioridad</th>
+                                        <th>Ingreso</th>
+                                        <th>Email</th>
+                                        <th>Editar</th>
+                                        <th>Emilinar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for oportunidad in oportunidades %}
+                                        {% if oportunidad.etapa == "nuevo" %}
+                                            {% set hay_nuevo = true %}
+                                            <tr>
+                                                <td>{{ oportunidad.id }}</td>
+                                                <td>Ver actividadades</td>
+                                                <td>Ver clientes</td>
+                                                <td>{{ oportunidad.prioridad }}</td>
+                                                <td>{{ oportunidad.ingreso }}€</td>
+                                                <td>{{ oportunidad.email }}</td>
+                                                <td class="text-center"><a class="text-primary"
+                                                                           href="/oportunidades/edit?id={{ oportunidad.id }}"
+                                                                           data-bs-toggle="modal"
+                                                                           data-bs-target="#modal-modificar-cliente"
+                                                                           onclick="abrirModalModificarUsuario()"><i
+                                                        class="fa-solid fa-square-pen"></i></a></td>
+                                                <td class="text-center"><a class="text-danger"
+                                                                           href="/oportunidades/delete?id={{ oportunidad.id }}"><i
+                                                        class="fa-solid fa-trash-can"></i></a></td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+                        {% if hay_nuevo == false %}
+                            <div class="p-4">
+                                <div class="alert alert-warning text-center" role="alert">
+                                    <strong>No hay oportunidades en nuevo</strong>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="tab-pane fade" id="calificado" role="tabpanel" aria-labelledby="calificado-tab">
+                        <!-- Calificado -->
+
+
+                    </div>
+                    <div class="tab-pane fade" id="propuesta" role="tabpanel" aria-labelledby="propuesta-tab">
+                        <!-- Propuesta -->
+
+
+                    </div>
+                    <div class="tab-pane fade" id="ganada" role="tabpanel" aria-labelledby="ganada-tab">
+                        <!-- Ganada -->
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
 {% endblock %}

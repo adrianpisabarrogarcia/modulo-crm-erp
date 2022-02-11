@@ -1,4 +1,3 @@
-import etapa
 
 class Oportunidad():
     id = ""
@@ -7,16 +6,16 @@ class Oportunidad():
     clientes = []
     prioridad = ""
     ingreso = ""
-    correo = ""
+    email = ""
 
-    def __init__(self, id, actividades, etapa, clientes, prioridad, ingreso, correo):
+    def __init__(self, id, actividades, etapa, clientes, prioridad, ingreso, email):
         self.id = id
         self.actividades = actividades
         self.etapa = etapa
         self.clientes = clientes
         self.prioridad = prioridad
         self.ingreso = ingreso
-        self.correo = correo
+        self.email = email
 
     def getId(self):
         return self.id
@@ -30,8 +29,8 @@ class Oportunidad():
         return self.prioridad
     def getIngreso(self):
         return self.ingreso
-    def getCorreo(self):
-        return self.correo
+    def getEmail(self):
+        return self.email
 
     def setId(self, id):
         self.id = id
@@ -45,10 +44,10 @@ class Oportunidad():
         self.prioridad = prioridad
     def setIngreso(self, ingreso):
         self.ingreso = ingreso
-    def setCorreo(self, correo):
-        self.correo = correo
+    def setEmail(self, email):
+        self.email = email
 
     def __str__(self):
-        return "Id: " + str(self.id) + " " + "Oportunidad: " + str(self.actividades) + " " + str(self.etapa) + " " + str(self.clientes) + " " + str(self.prioridad) + " " + str(self.ingreso) + " " + str(self.correo)
+        return "Id: " + str(self.id) + " " + "Oportunidad{ " + "Actividades: " +str(self.actividades) + " " + "Etapa: " + str(self.etapa) + " " + "Clientes: " + str(self.clientes) + " " + "Prioridad: " + str(self.prioridad) + " " +  "Ingreso: " +str(self.ingreso) + " " +  "Email: " + str(self.email) + " }\n"
 
 
