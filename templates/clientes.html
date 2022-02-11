@@ -1,100 +1,185 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Clientes</h1>
+    <h1>Clientes</h1>
 
-<div class="container">
+    <div class="container">
 
-    <div class="card mt-3">
-        <h5 class="card-header"><i class="fas fa-user-plus"></i>&nbsp;Añadir cliente</h5>
-        <form action="/clientes" method="post">
+        <!-- Añadir clientes -->
+        <div class="card mt-3">
+            <h5 class="card-header"><i class="fas fa-user-plus"></i>&nbsp;Añadir cliente</h5>
+            <form action="/clientes" method="post">
 
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Odei" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="number" maxlength="8" class="form-control" id="telefono" name="telefono"
+                               placeholder="688452312" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               placeholder="example@correo.com"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="web" class="form-label">Web</label>
+                        <input type="url" class="form-control" id="web" name="web" placeholder="https://example.com"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion"
+                               placeholder="C/ Brasil, Nº5, 01010"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ciudad" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Madrid" required>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus-circle"></i>&nbsp;Añadir
+                            cliente
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tabla clientes -->
+        <div class="card mt-3">
+            <h5 class="card-header"><i class="fas fa-users-cog"></i>&nbsp;Lista de clientes</h5>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Lantek" required>
-                </div>
-                <div class="mb-3">
-                    <label for="telefono" class="form-label">Telefono</label>
-                    <input type="number" maxlength="8" class="form-control" id="telefono" name="telefono"
-                           placeholder="688452312" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="example@correo.com"
-                           required>
-                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-success">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo electrónico</th>
+                        <th scope="col">Web</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col" class="text-center text-primary">Editar</th>
+                        <th scope="col" class="text-center text-danger">Borrar</th>
+                    </tr>
+                    </thead>
+                    {% if clientes %}
+                        <tbody>
+                        {% for cliente in clientes %}
+                            <tr>
+                                <th scope="row" class="text-success">{{ cliente.id }}</th>
+                                <td>{{ cliente.nombre }}</td>
+                                <td>{{ cliente.telefono }}</td>
+                                <td>{{ cliente.email }}</td>
+                                <td>{{ cliente.web }}</td>
+                                <td>{{ cliente.direccion }}</td>
+                                <td>{{ cliente.ciudad }}</td>
+                                <td class="text-center"><a class="text-primary"
+                                                           href="/clientes/edit?id={{ cliente.id }}"
+                                                           data-bs-toggle="modal"
+                                                           data-bs-target="#modal-modificar-cliente"
+                                                           onclick="abrirModalModificarUsuario('{{ cliente.id }}', '{{ cliente.nombre }}', '{{ cliente.telefono }}', '{{ cliente.email }}', '{{ cliente.web }}', '{{ cliente.direccion }}', '{{ cliente.ciudad }}')"><i
+                                        class="fa-solid fa-square-pen"></i></a></td>
+                                <td class="text-center"><a class="text-danger"
+                                                           href="/clientes/delete?id={{ cliente.id }}"><i
+                                        class="fa-solid fa-trash-can"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% endif %}
 
-                <div class="mb-3">
-                    <label for="web" class="form-label">Web</label>
-                    <input type="url" class="form-control" id="web" name="web" placeholder="https://example.com"
-                           required>
-                </div>
+                </table>
+            </div>
+        </div>
 
-                <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion"
-                           placeholder="C/ Brasil, Nº5, 01010"
-                           required>
-                </div>
-                <div class="mb-3">
-                    <label for="ciudad" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Madrid" required>
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus-circle"></i>&nbsp;Añadir
-                        cliente
-                    </button>
+
+        <!-- Modificar cliente -->
+        <div class="modal fade" tabindex="-1" id="modal-modificar-cliente">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i>&nbsp;Modificar cliente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/clientes/edit" method="post">
+                        <div class="modal-body">
+                            <!-- cuerpo modal -->
+
+                            <div class="mb-3">
+                                <label for="id-modificar" class="form-label">Id</label>
+                                <input type="text" class="form-control" value="0" id="id-modificar" name="id-modificar"
+                                       placeholder="id" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre-modificar" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre-modificar" name="nombre-modificar"
+                                       placeholder="Odei" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono-modificar" class="form-label">Telefono</label>
+                                <input type="number" maxlength="8" class="form-control" id="telefono-modificar"
+                                       name="telefono-modificar"
+                                       placeholder="688452312" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email-modificar" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email-modificar" name="email-modificar"
+                                       placeholder="example@correo.com"
+                                       required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="web-modificar" class="form-label">Web</label>
+                                <input type="url" class="form-control" id="web-modificar" name="web-modificar"
+                                       placeholder="https://example.com"
+                                       required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="direccion-modificar" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccion-modificar" name="direccion-modificar"
+                                       placeholder="C/ Brasil, Nº5, 01010"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ciudad-modificar" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudad-modificar" name="ciudad-modificar"
+                                       placeholder="Madrid" required>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Modificar
+                                cliente
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-    </div>
-
-
-    <div class="card mt-3">
-        <h5 class="card-header"><i class="fas fa-users-cog"></i>&nbsp;Lista de clientes</h5>
-        <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col" class="text-success">Id</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Correo electrónico</th>
-                    <th scope="col">Web</th>
-                    <th scope="col">Dirección</th>
-                    <th scope="col">Ciudad</th>
-                    <th scope="col" class="text-center text-primary">Editar</th>
-                    <th scope="col" class="text-center text-danger">Borrar</th>
-                </tr>
-                </thead>
-                {% if clientes %}
-                <tbody>
-                {% for cliente in clientes %}
-
-                <tr>
-                    <th scope="row" class="text-success">{{ cliente.id }}</th>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.telefono }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.web }}</td>
-                    <td>{{ cliente.direccion }}</td>
-                    <td>{{ cliente.ciudad }}</td>
-                    <td class="text-center"><a class="text-primary" href="/cliente/edit?id={{cliente.id}}"><i
-                            class="fa-solid fa-square-pen"></i></a></td>
-                    <td class="text-center"><a class="text-danger" href="/cliente/delete?id={{cliente.id}}"><i
-                            class="fa-solid fa-trash-can"></i></a></td>
-                </tr>
-                {% endfor %}
-
-
-                </tbody>
-                {% endif %}
-
-            </table>
         </div>
     </div>
-</div>
+
+    <script>
+        function abrirModalModificarUsuario(id, nombre, telefono, email, web, direccion, ciudad) {
+            $('.modal-body #id-modificar').val(id);
+            $('.modal-body #nombre-modificar').val(nombre);
+            $('.modal-body #telefono-modificar').val(telefono);
+            $('.modal-body #email-modificar').val(email);
+            $('.modal-body #web-modificar').val(web);
+            $('.modal-body #direccion-modificar').val(direccion);
+            $('.modal-body #ciudad-modificar').val(ciudad);
+            //$('#modal-modificar').modal('show');
+
+        }
+    </script>
 
 
 {% endblock %}
