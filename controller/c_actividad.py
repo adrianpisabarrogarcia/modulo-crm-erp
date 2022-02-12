@@ -45,9 +45,9 @@ def modificar_actividad(request):
 
     for actividad_existente in actividades:
         if actividad_existente.id == str(actividad.id):
-            actividad_existente.nombre = str(actividad.descripcion)
-            actividad_existente.telefono = str(actividad.fecha_vencimiento)
-            actividad_existente.web = str(actividad.fecha_limite)
-            actividad_existente.direccion = str(actividad.resumen)
-            actividad_existente.ciudad = str(actividad.tipo)
+            actividad_existente.descripcion = str(actividad.descripcion)
+            actividad_existente.fecha_vencimiento = str(actividad.fecha_vencimiento)
+            actividad_existente.fecha_limite = str(actividad.fecha_limite)
+            actividad_existente.resumen = str(actividad.resumen)
+            actividad_existente.tipo = str(actividad.tipo)
             break

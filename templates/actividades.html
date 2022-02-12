@@ -12,7 +12,8 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <div class="form-floating">
-                            <textarea class="form-control" name="descripcion" placeholder="Descripción..." id="descripcion"
+                            <textarea class="form-control" name="descripcion" placeholder="Descripción..."
+                                      id="descripcion"
                                       style="height: 100px" required></textarea>
                             <label for="descripcion">Descripción...</label>
                         </div>
@@ -35,6 +36,15 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="etapa" class="form-label">Tipo</label>
+                        <select class="form-select" aria-label="Selecciona un tipo..." id="etapa" name="tipo">
+                            <option value="compra" selected>Compra</option>
+                            <option value="direccion">Dirección</option>
+                            <option value="promocion">Promoción</option>
+                            <option value="mejora">Mejora</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus-circle"></i>&nbsp;Añadir
                             actividad
                         </button>
@@ -51,12 +61,11 @@
                     <thead>
                     <tr>
                         <th scope="col" class="text-success">Id</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Correo electrónico</th>
-                        <th scope="col">Web</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Ciudad</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Fecha de vencimiento</th>
+                        <th scope="col">Fecha límite</th>
+                        <th scope="col">Resumen</th>
+                        <th scope="col">Tipo</th>
                         <th scope="col" class="text-center text-primary">Editar</th>
                         <th scope="col" class="text-center text-danger">Borrar</th>
                     </tr>
@@ -70,12 +79,22 @@
                                 <td>{{ actividad.fecha_vencimiento }}</td>
                                 <td>{{ actividad.fecha_limite }}</td>
                                 <td>{{ actividad.resumen }}</td>
-                                <td>{{ actividad.tipo }}</td>
+                                <td>
+                                    {% if actividad.tipo == "compra" %}
+                                        Compra
+                                    {% elif actividad.tipo == "direccion" %}
+                                        Dirección
+                                    {% elif actividad.tipo == "promocion" %}
+                                        Promoción
+                                    {% elif actividad.tipo == "mejora" %}
+                                        Mejora
+                                    {% endif %}
+                                </td>
                                 <td class="text-center"><a class="text-primary"
                                                            href="/actividades/edit?id={{ actividad.id }}"
                                                            data-bs-toggle="modal"
                                                            data-bs-target="#modal-modificar-actividad"
-                                                           onclick="abrirModalModificarActividad('{{ cliente.id }}', '{{ cliente.nombre }}', '{{ cliente.telefono }}', '{{ cliente.email }}', '{{ cliente.web }}', '{{ cliente.direccion }}', '{{ cliente.ciudad }}')"><i
+                                                           onclick="abrirModalModificarActividad('{{ actividad.id }}', '{{ actividad.descripcion }}', '{{ actividad.fecha_vencimiento }}', '{{ actividad.fecha_limite }}', '{{ actividad.resumen }}', '{{ actividad.tipo }}')"><i
                                         class="fa-solid fa-square-pen"></i></a></td>
                                 <td class="text-center"><a class="text-danger"
                                                            href="/actividades/delete?id={{ actividad.id }}"><i
@@ -106,6 +125,43 @@
                                 <label for="id-modificar" class="form-label">Id</label>
                                 <input type="text" class="form-control" value="0" id="id-modificar" name="id-modificar"
                                        placeholder="id" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="descripcion-modificar" placeholder="Descripción..."
+                                              id="descripcion-modificar"
+                                              style="height: 100px" required></textarea>
+                                    <label for="descripcion-modificar">Descripción...</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha-vencimiento-modificar" class="form-label">Fecha de vencimiento</label>
+                                <input type="date" class="form-control" id="fecha-vencimiento-modificar"
+                                       name="fecha-vencimiento-modificar"
+                                       placeholder="" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha-limite-modificar" class="form-label">Fecha límite</label>
+                                <input type="date" class="form-control" id="fecha-limite-modificar" name="fecha-limite-modificar"
+                                       placeholder="" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-floating">
+                            <textarea class="form-control" name="resumen-modificar" placeholder="Resumen..."
+                                      id="resumen-modificar"
+                                      style="height: 80px" required></textarea>
+                                    <label for="resumen-modificar">Resumen...</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="etapa-modificar" class="form-label">Tipo</label>
+                                <select class="form-select" aria-label="Selecciona un tipo..." id="etapa-modificar"
+                                        name="tipo-modificar">
+                                    <option value="compra" selected>Compra</option>
+                                    <option value="direccion">Dirección</option>
+                                    <option value="promocion">Promoción</option>
+                                    <option value="mejora">Mejora</option>
+                                </select>
                             </div>
 
 
