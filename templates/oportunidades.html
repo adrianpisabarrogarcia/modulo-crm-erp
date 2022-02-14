@@ -5,23 +5,143 @@
 
     <div class="container">
         <div class="card mt-3">
+
+
+            <!-- modales -->
+            <!-- Añadir listado de actividades -->
+            <div class="modal fade" tabindex="-1" id="modal-anadir-actividades">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fa-solid fa-dice-five"></i>&nbsp;Añadir actividades</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- cuerpo modal -->
+                            <div class="mb-3">
+                                {% if actividades %}
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Descripción</th>
+                                            <th>Escoger/No escoger</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for actividad in actividades %}
+                                            <tr>
+                                                <td>{{ actividad.id }}</td>
+                                                <td>{{ actividad.descripcion }}</td>
+                                                <td>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               id="escoger-cliente">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <div class="alert alert-warning">
+                                        <i class="fa-solid fa-exclamation-triangle"></i>&nbsp;No hay actividades
+                                        disponibles
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" id="anadirActividadesAOpotunidad"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Añadir
+                                actividades a la oportunidad
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Añadir listado de clientes -->
+            <div class="modal fade" tabindex="-1" id="modal-anadir-clientes">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fa-solid fa-users"></i>&nbsp;Añadir clientes</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- cuerpo modal -->
+                            <div class="mb-3">
+                                {% if clientes %}
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Escoger/No escoger</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for cliente in clientes %}
+                                            <tr>
+                                                <td>{{ cliente.id }}</td>
+                                                <td>{{ cliente.nombre }}</td>
+                                                <td>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               id="escoger-cliente">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <div class="alert alert-warning">
+                                        <i class="fa-solid fa-exclamation-triangle"></i>&nbsp;No hay clientes
+                                        disponibles
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" id="anadirClientesAOpotunidad"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Añadir
+                                clientes a la oportunidad
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- contenido -->
             <h5 class="card-header"><i class="fa-solid fa-thumbs-up"></i>&nbsp;Añadir oportunidad</h5>
             <form action="/oportunidades" method="post">
                 <div class="card-body">
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-md-6 pt-2 pb-2">
-                                <button type="button" class="btn btn-secondary w-100"><i
-                                        class="fa-solid fa-dice-five"></i>&nbsp;Añadir actividades
-                                </button>
+                                <a class="btn btn-secondary w-100"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#modal-anadir-actividades">
+                                    <i class="fa-solid fa-dice-five"></i>&nbsp;Añadir actividades
+                                </a>
                             </div>
                             <div class="col-md-6 pt-2 pb-2">
-                                <button type="button" class="btn btn-secondary w-100"><i class="fa-solid fa-users"></i>&nbsp;Añadir
-                                    clientes
-                                </button>
+                                <a class="btn btn-secondary w-100"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#modal-anadir-clientes">
+                                    <i class="fa-solid fa-users"></i>&nbsp;Añadir clientes
+                                </a>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="actividades" id="listado-actividades" value="">
+                    <input type="hidden" name="clientes" id="listado-clientes" value="">
                     <div class="mb-3">
                         <label for="etapa" class="form-label">Etapa</label>
                         <select class="form-select" aria-label="Selecciona una etapa..." id="etapa" name="etapa">
@@ -31,17 +151,19 @@
                             <option value="ganada">Ganada</option>
                         </select>
                     </div>
+
                     <div class="mb-3">
                         <label for="prioridad" class="form-label">Prioridad</label>
-                        <select class="form-select" aria-label="Selecciona una prioridad..." id="prioridad" name="prioridad">
+                        <select class="form-select" aria-label="Selecciona una prioridad..." id="prioridad"
+                                name="prioridad">
                             <option value="baja" class="bg-success text-white" selected>Baja</option>
                             <option value="media" class="bg-warning text-dark">Media</option>
                             <option value="alta" class="bg-danger text-white">Alta</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Importe en €:</label>
-                        <input type="number" class="form-control" id="email" name="email"
+                        <label for="ingreso" class="form-label">Importe en €:</label>
+                        <input type="number" class="form-control" id="ingreso" name="ingreso"
                                placeholder="42000,00"
                                required>
                     </div>
@@ -158,5 +280,6 @@
 
         </div>
     </div>
+
 
 {% endblock %}

@@ -6,16 +6,14 @@ class Oportunidad():
     clientes = []
     prioridad = ""
     ingreso = ""
-    email = ""
 
-    def __init__(self, id, actividades, etapa, clientes, prioridad, ingreso, email):
+    def __init__(self, id, actividades, etapa, clientes, prioridad, ingreso):
         self.id = id
         self.actividades = actividades
         self.etapa = etapa
         self.clientes = clientes
         self.prioridad = prioridad
         self.ingreso = ingreso
-        self.email = email
 
     def getId(self):
         return self.id
@@ -29,8 +27,6 @@ class Oportunidad():
         return self.prioridad
     def getIngreso(self):
         return self.ingreso
-    def getEmail(self):
-        return self.email
 
     def setId(self, id):
         self.id = id
@@ -44,10 +40,8 @@ class Oportunidad():
         self.prioridad = prioridad
     def setIngreso(self, ingreso):
         self.ingreso = ingreso
-    def setEmail(self, email):
-        self.email = email
 
     def __str__(self):
-        return "Id: " + str(self.id) + " " + "Oportunidad{ " + "Actividades: " +str(self.actividades) + " " + "Etapa: " + str(self.etapa) + " " + "Clientes: " + str(self.clientes) + " " + "Prioridad: " + str(self.prioridad) + " " +  "Ingreso: " +str(self.ingreso) + " " +  "Email: " + str(self.email) + " }\n"
+        return "Id: " + str(self.id) + " " + "Oportunidad{ " + "Actividades: " +str(self.actividades) + " " + "Etapa: " + str(self.etapa) + " " + "Clientes: " + str(self.clientes) + " " + "Prioridad: " + str(self.prioridad) + " " +  "Ingreso: " +str(self.ingreso) + " " + " }\n"
 
 

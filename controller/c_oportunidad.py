@@ -1,4 +1,6 @@
 from model.oportunidad import Oportunidad
+from controller.c_actividad import actividades
+from controller.c_cliente import clientes
 
 oportunidades = []
 
@@ -9,16 +11,31 @@ def getNextId():
 # Método para agregar una nueva oportunidad
 def anadir_oportunidad(request):
     id = str(getNextId())
-    # actividades = str(request.form.get("actividades"))
+    imput_actividades = str(request.form.get("actividades"))
     etapa = str(request.form.get("telefono"))
-    # clientes = str(request.form.get("clientes"))
+    imput_clientes = str(request.form.get("clientes"))
     prioridad = str(request.form.get("prioridad"))
     ingreso = str(request.form.get("ingreso"))
-    correo = str(request.form.get("correo"))
 
-    actividades = []
-    clientes = []
-    oportunidad = Oportunidad(id, actividades, etapa, clientes, prioridad, ingreso, correo)
+    # introducir actividades en una lista de actividades para después agregarlas a la oportunidad creada
+    listado_actividades = []
+    split_actividades = imput_actividades.split(",")
+    for split_id in split_actividades:
+        for actividad in actividades:
+            if str(actividad.id) == split_id:
+                listado_actividades.append(actividad)
+                break
+
+    # introducir clientes en una lista de clientes para después agregarlas a la oportunidad creada
+    listado_clientes = []
+    split_clientes = imput_clientes.split(",")
+    for split_id in split_clientes:
+        for cliente in clientes:
+            if str(cliente.id) == split_id:
+                listado_clientes.append(cliente)
+                break
+
+    oportunidad = Oportunidad(id, listado_actividades, etapa, listado_clientes, prioridad, ingreso)
     oportunidades.append(oportunidad)
 
 
