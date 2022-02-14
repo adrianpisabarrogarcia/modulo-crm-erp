@@ -6,8 +6,8 @@ from controller.c_actividad import anadir_actividad, listar_actividades, elimina
 app = Flask(__name__)
 
 ########################################################################################################################
-# Oportunidades: Mostrar
-@app.route('/')
+# Oportunidades: Mostrar y Añadir
+@app.route('/', methods=["GET", "POST"])
 def home():
     oportunidades = listar_oportunidades()
     actividades = listar_actividades()

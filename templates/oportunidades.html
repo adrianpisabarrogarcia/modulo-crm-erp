@@ -5,8 +5,6 @@
 
     <div class="container">
         <div class="card mt-3">
-
-
             <!-- modales -->
             <!-- Añadir listado de actividades -->
             <div class="modal fade" tabindex="-1" id="modal-anadir-actividades">
@@ -28,7 +26,7 @@
                                             <th>Escoger/No escoger</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listado-de-actividades">
                                         {% for actividad in actividades %}
                                             <tr>
                                                 <td>{{ actividad.id }}</td>
@@ -36,7 +34,7 @@
                                                 <td>
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox"
-                                                               id="escoger-cliente">
+                                                               id="escoger-actividad-{{ actividad.id }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -53,7 +51,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary cerrar-modal" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary" id="anadirActividadesAOpotunidad"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Añadir
                                 actividades a la oportunidad
                             </button>
@@ -82,7 +80,7 @@
                                             <th>Escoger/No escoger</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="listado-de-clientes">
                                         {% for cliente in clientes %}
                                             <tr>
                                                 <td>{{ cliente.id }}</td>
@@ -90,7 +88,7 @@
                                                 <td>
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox"
-                                                               id="escoger-cliente">
+                                                               id="escoger-cliente-{{ cliente.id }}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -107,12 +105,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary cerrar-modal" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary" id="anadirClientesAOpotunidad"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Añadir
                                 clientes a la oportunidad
                             </button>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -120,7 +117,7 @@
 
             <!-- contenido -->
             <h5 class="card-header"><i class="fa-solid fa-thumbs-up"></i>&nbsp;Añadir oportunidad</h5>
-            <form action="/oportunidades" method="post">
+            <form action="/" method="post">
                 <div class="card-body">
                     <div class="mb-3">
                         <div class="row">
@@ -218,7 +215,6 @@
                                         <th>Ver clientes</th>
                                         <th>Prioridad</th>
                                         <th>Ingreso</th>
-                                        <th>Email</th>
                                         <th>Editar</th>
                                         <th>Emilinar</th>
                                     </tr>
@@ -233,7 +229,6 @@
                                                 <td>Ver clientes</td>
                                                 <td>{{ oportunidad.prioridad }}</td>
                                                 <td>{{ oportunidad.ingreso }}€</td>
-                                                <td>{{ oportunidad.email }}</td>
                                                 <td class="text-center"><a class="text-primary"
                                                                            href="/oportunidades/edit?id={{ oportunidad.id }}"
                                                                            data-bs-toggle="modal"
@@ -280,6 +275,8 @@
 
         </div>
     </div>
+
+    <script src="../static/js/oportunidad.js"></script>
 
 
 {% endblock %}

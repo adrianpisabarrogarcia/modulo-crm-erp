@@ -12,10 +12,18 @@ def getNextId():
 def anadir_oportunidad(request):
     id = str(getNextId())
     imput_actividades = str(request.form.get("actividades"))
-    etapa = str(request.form.get("telefono"))
+    etapa = str(request.form.get("etapa"))
     imput_clientes = str(request.form.get("clientes"))
     prioridad = str(request.form.get("prioridad"))
     ingreso = str(request.form.get("ingreso"))
+
+    print("id: " + id)
+    print("actividades: " + imput_actividades)
+    print("etapa: " + etapa)
+    print("clientes: " + imput_clientes)
+    print("prioridad: " + prioridad)
+    print("ingreso: " + ingreso)
+
 
     # introducir actividades en una lista de actividades para después agregarlas a la oportunidad creada
     listado_actividades = []
@@ -64,7 +72,6 @@ def modificar_oportunidad(request):
     web = str(request.form.get("web-modificar"))
     direccion = str(request.form.get("direccion-modificar"))
     ciudad = str(request.form.get("ciudad-modificar"))
-    email = str(request.form.get("email-modificar"))
 
     cliente = Cliente(id, nombre, telefono, email, web, direccion, ciudad)
 
