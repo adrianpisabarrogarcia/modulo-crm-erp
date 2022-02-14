@@ -46,7 +46,6 @@ def anadir_oportunidad(request):
     oportunidad = Oportunidad(id, listado_actividades, etapa, listado_clientes, prioridad, ingreso)
     oportunidades.append(oportunidad)
 
-
 def listar_oportunidades():
     return oportunidades
 

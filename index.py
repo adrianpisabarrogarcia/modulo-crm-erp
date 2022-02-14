@@ -18,6 +18,13 @@ def home():
 
     return render_template('oportunidades.html', oportunidades=oportunidades, actividades=actividades, clientes=clientes)
 
+# Oportunidades: Eliminar
+@app.route('/oportunidades/delete')
+def delete_clintes():
+    if request.method == "GET":
+        id = str(request.args.get("id"))
+        eliminar_oportunidad(id)
+    return redirect(url_for('home'))
 
 ########################################################################################################################
 # Clientes: Mostrar y Añadir
@@ -39,7 +46,7 @@ def edit_clientes():
 
 # Clientes: Eliminar
 @app.route('/clientes/delete')
-def delete_clintes():
+def delete_clientes():
     if request.method == "GET":
         id = str(request.args.get("id"))
         eliminar_cliente(id)
