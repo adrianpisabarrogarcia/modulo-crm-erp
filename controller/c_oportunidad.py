@@ -11,30 +11,18 @@ def getNextId():
 # Método para agregar una nueva oportunidad
 def anadir_oportunidad(request):
     id = str(getNextId())
-    imput_actividades = str(request.form.get("actividades"))
+    input_actividades = str(request.form.get("actividades"))
     etapa = str(request.form.get("etapa"))
-    imput_clientes = str(request.form.get("clientes"))
+    input_clientes = str(request.form.get("clientes"))
     prioridad = str(request.form.get("prioridad"))
     ingreso = str(request.form.get("ingreso"))
 
 
     # introducir actividades en una lista de actividades para después agregarlas a la oportunidad creada
-    listado_actividades = []
-    split_actividades = imput_actividades.split(",")
-    for split_id in split_actividades:
-        for actividad in actividades:
-            if str(actividad.id) == split_id:
-                listado_actividades.append(actividad)
-                break
+    listado_actividades = devolver_actividades_clientes_concrectos(input_actividades, "actividades")
 
     # introducir clientes en una lista de clientes para después agregarlas a la oportunidad creada
-    listado_clientes = []
-    split_clientes = imput_clientes.split(",")
-    for split_id in split_clientes:
-        for cliente in clientes:
-            if str(cliente.id) == split_id:
-                listado_clientes.append(cliente)
-                break
+    listado_clientes = devolver_actividades_clientes_concrectos(input_clientes, "clientes")
 
     oportunidad = Oportunidad(id, listado_actividades, etapa, listado_clientes, prioridad, ingreso)
     oportunidades.append(oportunidad)
@@ -54,41 +42,56 @@ def eliminar_oportunidad(id):
         id = str(id)
         if id_oportunidad == id:
             oportunidades.remove(oportunidad)
+            volver_a_definir_ids()
+            break
 
-    i = 0
-    for oportunidad in oportunidades:
-        i += 1
-        oportunidad.id = i
+
 
 def modificar_oportunidad(request):
-    print("modificar_oportunidad")
-    """
-    id = str(getNextId())
-    imput_actividades = str(request.form.get("actividades"))
+    id = str(request.form.get("id"))
+    input_actividades = str(request.form.get("actividades"))
     etapa = str(request.form.get("etapa"))
-    imput_clientes = str(request.form.get("clientes"))
+    input_clientes = str(request.form.get("clientes"))
     prioridad = str(request.form.get("prioridad"))
     ingreso = str(request.form.get("ingreso"))
 
 
     # introducir actividades en una lista de actividades para después agregarlas a la oportunidad creada
-    listado_actividades = []
-    split_actividades = imput_actividades.split(",")
-    for split_id in split_actividades:
-        for actividad in actividades:
-            if str(actividad.id) == split_id:
-                listado_actividades.append(actividad)
-                break
+    listado_actividades = devolver_actividades_clientes_concrectos(input_actividades, "actividades")
 
     # introducir clientes en una lista de clientes para después agregarlas a la oportunidad creada
-    listado_clientes = []
-    split_clientes = imput_clientes.split(",")
-    for split_id in split_clientes:
-        for cliente in clientes:
-            if str(cliente.id) == split_id:
-                listado_clientes.append(cliente)
-                break
+    listado_clientes = devolver_actividades_clientes_concrectos(input_clientes, "clientes")
 
     oportunidad = Oportunidad(id, listado_actividades, etapa, listado_clientes, prioridad, ingreso)
-    oportunidades.append(oportunidad)
-    """
+    print(oportunidad)
+    for oportunidad_existente in oportunidades:
+        if str(oportunidad_existente.id) == str(id):
+            oportunidades.remove(oportunidad_existente)
+            oportunidades.append(oportunidad)
+            volver_a_definir_ids()
+            print("Modificado")
+            break
+
+def devolver_actividades_clientes_concrectos(input, tipo):
+    listado = []
+    split = input.split(",")
+
+    if tipo == "actividades":
+        for id in split:
+            for actividad in actividades:
+                if str(actividad.id) == id:
+                    listado.append(actividad)
+                    break
+    elif tipo == "clientes":
+        for id in split:
+            for cliente in clientes:
+                if str(cliente.id) == id:
+                    listado.append(cliente)
+                    break
+    return listado
+
+def volver_a_definir_ids():
+    i = 0
+    for oportunidad in oportunidades:
+        i += 1
+        oportunidad.id = i
