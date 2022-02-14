@@ -120,6 +120,52 @@
                 </div>
             </div>
 
+            <!-- Ver actividades asignadas a la oportunidad -->
+            <div class="modal fade" tabindex="-1" id="modal-ver-actividades-asignadas-oportunidad">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fa-solid fa-dice-five"></i>&nbsp;Ver actividades</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- cuerpo modal -->
+                            <div class="mb-3" id="modal-actividad-body">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary cerrar-modal" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ver clientes asignados a la oportunidad -->
+            <div class="modal fade" tabindex="-1" id="modal-ver-clientes-asignados-oportunidad">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fa-solid fa-dice-five"></i>&nbsp;Ver actividades</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- cuerpo modal -->
+                            <div class="mb-3" id="modal-cliente-body">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary cerrar-modal" data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- contenido -->
             <h5 class="card-header"><i class="fa-solid fa-thumbs-up"></i>&nbsp;Añadir oportunidad</h5>
@@ -229,8 +275,22 @@
                                         {% if oportunidad.etapa == "nuevo" %}
                                             <tr>
                                                 <td>{{ oportunidad.id }}</td>
-                                                <td>Ver actividadades</td>
-                                                <td>Ver clientes</td>
+                                                <td>
+                                                    {% for actividad in oportunidad.actividades %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verActividad('{{ actividad.id }}','{{ actividad.descripcion }}','{{ actividad.fecha_vencimiento }}','{{ actividad.fecha_limite }}','{{ actividad.resumen }}','{{ actividad.tipo }}')"><i
+                                                                class="fa-solid fa-eye"></i>&nbsp;Ver actividad</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for cliente in oportunidad.clientes %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verCliente('{{ cliente.id }}','{{ cliente.nombre }}','{{ cliente.telefono }}','{{ cliente.email }}','{{ cliente.web }}','{{ cliente.direccion }}','{{ cliente.ciudad }}')"><i
+                                                                class="fa-solid fa-user"></i>&nbsp;Ver cliente</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ oportunidad.prioridad }}</td>
                                                 <td>{{ oportunidad.ingreso }}€</td>
                                                 <td class="text-center"><a class="text-primary"
@@ -263,8 +323,8 @@
                                         <th>Ver clientes</th>
                                         <th>Prioridad</th>
                                         <th>Ingreso</th>
-                                        <th>Editar</th>
-                                        <th>Emilinar</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Borrarr</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -272,8 +332,22 @@
                                         {% if oportunidad.etapa == "calificado" %}
                                             <tr>
                                                 <td>{{ oportunidad.id }}</td>
-                                                <td>Ver actividadades</td>
-                                                <td>Ver clientes</td>
+                                                <td>
+                                                    {% for actividad in oportunidad.actividades %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verActividad('{{ actividad.id }}','{{ actividad.descripcion }}','{{ actividad.fecha_vencimiento }}','{{ actividad.fecha_limite }}','{{ actividad.resumen }}','{{ actividad.tipo }}')"><i
+                                                                class="fa-solid fa-eye"></i>&nbsp;Ver actividad</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for cliente in oportunidad.clientes %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verCliente('{{ cliente.id }}','{{ cliente.nombre }}','{{ cliente.telefono }}','{{ cliente.email }}','{{ cliente.web }}','{{ cliente.direccion }}','{{ cliente.ciudad }}')"><i
+                                                                class="fa-solid fa-user"></i>&nbsp;Ver cliente</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ oportunidad.prioridad }}</td>
                                                 <td>{{ oportunidad.ingreso }}€</td>
                                                 <td class="text-center"><a class="text-primary"
@@ -307,8 +381,8 @@
                                         <th>Ver clientes</th>
                                         <th>Prioridad</th>
                                         <th>Ingreso</th>
-                                        <th>Editar</th>
-                                        <th>Emilinar</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Borrar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -316,8 +390,22 @@
                                         {% if oportunidad.etapa == "propuesta" %}
                                             <tr>
                                                 <td>{{ oportunidad.id }}</td>
-                                                <td>Ver actividadades</td>
-                                                <td>Ver clientes</td>
+                                                <td>
+                                                    {% for actividad in oportunidad.actividades %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verActividad('{{ actividad.id }}','{{ actividad.descripcion }}','{{ actividad.fecha_vencimiento }}','{{ actividad.fecha_limite }}','{{ actividad.resumen }}','{{ actividad.tipo }}')"><i
+                                                                class="fa-solid fa-eye"></i>&nbsp;Ver actividad</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for cliente in oportunidad.clientes %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verCliente('{{ cliente.id }}','{{ cliente.nombre }}','{{ cliente.telefono }}','{{ cliente.email }}','{{ cliente.web }}','{{ cliente.direccion }}','{{ cliente.ciudad }}')"><i
+                                                                class="fa-solid fa-user"></i>&nbsp;Ver cliente</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ oportunidad.prioridad }}</td>
                                                 <td>{{ oportunidad.ingreso }}€</td>
                                                 <td class="text-center"><a class="text-primary"
@@ -351,8 +439,8 @@
                                         <th>Ver clientes</th>
                                         <th>Prioridad</th>
                                         <th>Ingreso</th>
-                                        <th>Editar</th>
-                                        <th>Emilinar</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Borrar</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -360,8 +448,22 @@
                                         {% if oportunidad.etapa == "ganada" %}
                                             <tr>
                                                 <td>{{ oportunidad.id }}</td>
-                                                <td>Ver actividadades</td>
-                                                <td>Ver clientes</td>
+                                                <td>
+                                                    {% for actividad in oportunidad.actividades %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verActividad('{{ actividad.id }}','{{ actividad.descripcion }}','{{ actividad.fecha_vencimiento }}','{{ actividad.fecha_limite }}','{{ actividad.resumen }}','{{ actividad.tipo }}')"><i
+                                                                class="fa-solid fa-eye"></i>&nbsp;Ver actividad</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for cliente in oportunidad.clientes %}
+                                                        <a class="btn btn-link"
+                                                           onclick="verCliente('{{ cliente.id }}','{{ cliente.nombre }}','{{ cliente.telefono }}','{{ cliente.email }}','{{ cliente.web }}','{{ cliente.direccion }}','{{ cliente.ciudad }}')"><i
+                                                                class="fa-solid fa-user"></i>&nbsp;Ver cliente</a>
+                                                        <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ oportunidad.prioridad }}</td>
                                                 <td>{{ oportunidad.ingreso }}€</td>
                                                 <td class="text-center"><a class="text-primary"

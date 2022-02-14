@@ -51,5 +51,5 @@ class Actividad():
         self.tipo = tipo
 
     def toString(self):
-        return "Id: "+ self.id +"\nDescripcion: " + self.descripcion + "\nFecha de vencimiento: " + self.fecha_vencimiento + "\nFecha limite: " + self.fecha_limite + "\nResumen: " + self.resumen + "\nTipo: " + self.tipo
+        return "Id: "+ self.id +"<br>Descripcion: " + self.descripcion + "<br>Fecha de vencimiento: " + self.fecha_vencimiento + "<br>Fecha limite: " + self.fecha_limite + "<br>Resumen: " + self.resumen + "<br>Tipo: " + self.tipo + "<br><br>"
 

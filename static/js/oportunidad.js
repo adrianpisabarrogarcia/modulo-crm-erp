@@ -43,3 +43,28 @@ $('#anadirClientesAOpotunidad').click(function () {
     $('.cerrar-modal').click();
 
 })
+
+function verActividad(id, descripcion, fecha_vencimiento, fecha_limite, resumen, tipo) {
+    let texto = ""
+    texto += "Id: " + id + "<br>";
+    texto += "Descripción: " + descripcion + "<br>";
+    texto += "Fecha de vencimiento: " + fecha_vencimiento + "<br>";
+    texto += "Fecha límite: " + fecha_limite + "<br>";
+    texto += "Resumen: " + resumen + "<br>";
+    texto += "Tipo: " + tipo + "<br>";
+    $('#modal-ver-actividades-asignadas-oportunidad').modal('show');
+    $('#modal-actividad-body').html(texto);
+}
+
+function verCliente(id, nombre, telefono, email, web, direccion, ciudad) {
+    let texto = ""
+    texto += "Id: " + id + "<br>";
+    texto += "Nombre: " + nombre + "<br>";
+    texto += "Teléfono: " + telefono + "<br>";
+    texto += "Email: " + email + "<br>";
+    texto += "Web: " + web + "<br>";
+    texto += "Dirección: " + direccion + "<br>";
+    texto += "Ciudad: " + ciudad + "<br>";
+    $('#modal-ver-clientes-asignados-oportunidad').modal('show');
+    $('#modal-cliente-body').html(texto);
+}

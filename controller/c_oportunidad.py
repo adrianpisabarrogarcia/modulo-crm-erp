@@ -17,13 +17,6 @@ def anadir_oportunidad(request):
     prioridad = str(request.form.get("prioridad"))
     ingreso = str(request.form.get("ingreso"))
 
-    print("id: " + id)
-    print("actividades: " + imput_actividades)
-    print("etapa: " + etapa)
-    print("clientes: " + imput_clientes)
-    print("prioridad: " + prioridad)
-    print("ingreso: " + ingreso)
-
 
     # introducir actividades en una lista de actividades para después agregarlas a la oportunidad creada
     listado_actividades = []
