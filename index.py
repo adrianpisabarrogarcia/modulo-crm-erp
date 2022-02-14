@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from controller.c_cliente import anadir_cliente, listar_clientes, eliminar_cliente, modificar_cliente
-from controller.c_oportunidad import anadir_oportunidad, listar_oportunidades, eliminar_oportunidad, modificar_oportunidad
+from controller.c_oportunidad import anadir_oportunidad, listar_oportunidades, eliminar_oportunidad, modificar_oportunidad, listar_oportunidad
 from controller.c_actividad import anadir_actividad, listar_actividades, eliminar_actividades, modificar_actividad
 
 app = Flask(__name__)
@@ -20,11 +20,26 @@ def home():
 
 # Oportunidades: Eliminar
 @app.route('/oportunidades/delete')
-def delete_clintes():
+def delete_oportunidad():
     if request.method == "GET":
         id = str(request.args.get("id"))
         eliminar_oportunidad(id)
     return redirect(url_for('home'))
+
+# Oportunidades: Modificar
+@app.route('/oportunidades/edit', methods=["GET", "POST"])
+def edit_oportunidad():
+    if request.method == "GET":
+        id = str(request.args.get("id"))
+        oportunidad = listar_oportunidad(id)
+        actividades = listar_actividades()
+        clientes = listar_clientes()
+        #mostrar pagina de modificar una oportunidad
+        return render_template('edit-oportunidades.html', oportunidad=oportunidad, actividades=actividades, clientes=clientes)
+    else:
+        modificar_oportunidad(request)
+    return redirect(url_for('home'))
+
 
 ########################################################################################################################
 # Clientes: Mostrar y Añadir
@@ -52,7 +67,7 @@ def delete_clientes():
         eliminar_cliente(id)
     return redirect(url_for('clientes'))
 
-######################################################################################################################### Clientes: Mostrar y Añadir
+#########################################################################################################################
 # Actividades: Mostrar y Añadir
 @app.route('/actividades', methods=["GET", "POST"])
 def actividades():
