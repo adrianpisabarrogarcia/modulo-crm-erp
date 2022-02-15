@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from controller.c_cliente import anadir_cliente, listar_clientes, eliminar_cliente, modificar_cliente
 from controller.c_oportunidad import anadir_oportunidad, listar_oportunidades, eliminar_oportunidad, modificar_oportunidad, listar_oportunidad
 from controller.c_actividad import anadir_actividad, listar_actividades, eliminar_actividades, modificar_actividad
+from controller.c_informes import generar_graficos
 
 app = Flask(__name__)
 
@@ -12,7 +13,6 @@ def home():
     oportunidades = listar_oportunidades()
     actividades = listar_actividades()
     clientes = listar_clientes()
-
     if request.method == "POST":
         anadir_oportunidad(request)
 
@@ -97,6 +97,7 @@ def delete_actividades():
 # Informes: Mostrar
 @app.route('/informes')
 def informes():
+    generar_graficos()
     return render_template('informes.html')
 
 
