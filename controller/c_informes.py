@@ -1,5 +1,7 @@
 # libraries
 import datetime
+from sys import platform
+
 import matplotlib.pyplot as plt
 from controller.c_oportunidad import num_oportunidades_en_cada_etapa, num_oportunidades_en_cada_ingreso, \
     num_oportunidades_en_cada_prioridad
@@ -20,21 +22,15 @@ def generar_graficos():
 
 # guardar el gráfico y devolver la ruta en la que esta guardado
 def generar_archivo(veces1):
-    ruta = "/tmp/"
     nombre_fichero = str(datetime.datetime.now()).replace(':', '-').replace('.', '-').replace(' ', '-')
     extension = ".png"
-    enlace_completo = ruta + nombre_fichero + extension
-    ruta_windows = "/Users/adrianpisabarrogarcia/Desktop/Git/modulo-crm-erp/static/img/" + nombre_fichero + extension
-
+    ruta = "../static/img/graficos/"
     # guardar fichero
     # plt.show()
+    enlace_completo = ruta + nombre_fichero + extension
     plt.savefig(enlace_completo)
-    if veces1 == 1:
-        os.system("rm -r " + "/Users/adrianpisabarrogarcia/Desktop/Git/modulo-crm-erp/static/img/*")
-
-    os.system("mv " + enlace_completo + " " + ruta_windows)
-
     plt.close()
+
     # devolver la ruta
     return str(nombre_fichero + extension)
 
