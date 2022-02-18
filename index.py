@@ -97,9 +97,8 @@ def delete_actividades():
 # Informes: Mostrar
 @app.route('/informes')
 def informes():
-    generar_graficos()
-    return render_template('informes.html')
-
+    graficos = generar_graficos()
+    return render_template('informes.html', graficos=graficos)
 
 
 

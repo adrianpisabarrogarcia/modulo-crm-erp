@@ -95,3 +95,49 @@ def volver_a_definir_ids():
     for oportunidad in oportunidades:
         i += 1
         oportunidad.id = i
+
+
+
+# generar informe
+def num_oportunidades_en_cada_etapa():
+    data = {
+        "nuevo": int(0),
+        "calificado": int(0),
+        "propuesta": int(0),
+        "ganada": int(0)
+    }
+    for oportunidad in oportunidades:
+        if oportunidad.etapa == "nuevo":
+            data["nuevo"] += 1
+        elif oportunidad.etapa == "calificado":
+            data["calificado"] += 1
+        elif oportunidad.etapa == "propuesta":
+            data["propuesta"] += 1
+        elif oportunidad.etapa == "ganada":
+            data["ganada"] += 1
+    return data
+
+
+def num_oportunidades_en_cada_prioridad():
+    data = {
+        "alta": int(0),
+        "media": int(0),
+        "baja": int(0)
+    }
+    for oportunidad in oportunidades:
+        if oportunidad.prioridad == "alta":
+            data["alta"] += 1
+        elif oportunidad.prioridad == "media":
+            data["media"] += 1
+        elif oportunidad.prioridad == "baja":
+            data["baja"] += 1
+    return data
+
+def num_oportunidades_en_cada_ingreso():
+    data = []
+    for oportunidad in oportunidades:
+        data.append({
+            "id": int(oportunidad.id),
+            "ingreso": int(oportunidad.ingreso)
+        })
+    return data
