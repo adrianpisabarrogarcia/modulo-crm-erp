@@ -18,8 +18,7 @@ def generar_graficos():
     datos = {
         "etapas": cantidad_oportunidades(),
         "prioridades": cantidad_oportunidades_por_prioridad(),
-        "ingresos": cantidad_oportunidades_por_ingreso(),
-
+        "ingresos": cantidad_oportunidades_por_ingreso()
     }
 
     return datos
@@ -31,8 +30,8 @@ def generar_archivo(veces1):
     extension = ".png"
     sistemaoperativo = str(os.name)
     print("so: " + sistemaoperativo)
-    if sistemaoperativo == "linux" or sistemaoperativo == "linux2" or sistemaoperativo == "darwin":
-        #para so basado en linux, mac os
+    if sistemaoperativo == "linux" or sistemaoperativo == "linux2" or sistemaoperativo == "darwin" or sistemaoperativo == "posix" or sistemaoperativo == "mac" or sistemaoperativo == "os2" or sistemaoperativo == "cygwin":
+        #para so basado en linux, mac os, etc.
         ruta = str(pathlib.Path().absolute()) + "/static/img/grafico"
     else:
         #para windows
