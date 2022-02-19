@@ -1,12 +1,13 @@
 # libraries
 import datetime
 from sys import platform
-
 import matplotlib.pyplot as plt
 from controller.c_oportunidad import num_oportunidades_en_cada_etapa, num_oportunidades_en_cada_ingreso, \
     num_oportunidades_en_cada_prioridad
 import os
 import numpy as np
+import pathlib
+
 
 
 def generar_graficos():
@@ -24,12 +25,22 @@ def generar_graficos():
 def generar_archivo(veces1):
     nombre_fichero = str(datetime.datetime.now()).replace(':', '-').replace('.', '-').replace(' ', '-')
     extension = ".png"
-    ruta = "../static/img/graficos/"
+    sistema = platform.system()
+
+    if sistema == "linux" or sistema == "linux2" or sistema == "darwin":
+        #para so basado en linux, mac os
+        ruta = str(pathlib.Path().absolute()) + "/static/img/grafico"
+    else:
+        #para windows
+        ruta = str(pathlib.Path().absolute()) + "\\static\\img\\grafico"
     # guardar fichero
     # plt.show()
     enlace_completo = ruta + nombre_fichero + extension
     plt.savefig(enlace_completo)
     plt.close()
+
+    nombre_fichero = "grafico" + nombre_fichero
+
 
     # devolver la ruta
     return str(nombre_fichero + extension)
