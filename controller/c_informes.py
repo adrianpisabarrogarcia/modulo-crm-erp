@@ -1,6 +1,7 @@
 # libraries
 import datetime
-from sys import platform as pltf
+import os
+from sys import platform
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -28,8 +29,9 @@ def generar_graficos():
 def generar_archivo(veces1):
     nombre_fichero = str(datetime.datetime.now()).replace(':', '-').replace('.', '-').replace(' ', '-')
     extension = ".png"
-
-    if pltf.system() == "linux" or pltf.system() == "linux2" or pltf.system() == "darwin":
+    sistemaoperativo = str(os.name)
+    print("so: " + sistemaoperativo)
+    if sistemaoperativo == "linux" or sistemaoperativo == "linux2" or sistemaoperativo == "darwin":
         #para so basado en linux, mac os
         ruta = str(pathlib.Path().absolute()) + "/static/img/grafico"
     else:
