@@ -1,10 +1,13 @@
 # libraries
 import datetime
-from sys import platform
+from sys import platform as pltf
+
+import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.use('Agg')
+
 from controller.c_oportunidad import num_oportunidades_en_cada_etapa, num_oportunidades_en_cada_ingreso, \
     num_oportunidades_en_cada_prioridad
-import os
 import numpy as np
 import pathlib
 
@@ -25,9 +28,8 @@ def generar_graficos():
 def generar_archivo(veces1):
     nombre_fichero = str(datetime.datetime.now()).replace(':', '-').replace('.', '-').replace(' ', '-')
     extension = ".png"
-    sistema = platform.system()
 
-    if sistema == "linux" or sistema == "linux2" or sistema == "darwin":
+    if pltf.system() == "linux" or pltf.system() == "linux2" or pltf.system() == "darwin":
         #para so basado en linux, mac os
         ruta = str(pathlib.Path().absolute()) + "/static/img/grafico"
     else:
