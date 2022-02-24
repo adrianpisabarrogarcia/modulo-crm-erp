@@ -25,7 +25,7 @@ def generar_graficos():
 
 
 # guardar el gráfico y devolver la ruta en la que esta guardado
-def generar_archivo(veces1):
+def generar_archivo():
     nombre_fichero = str(datetime.datetime.now()).replace(':', '-').replace('.', '-').replace(' ', '-')
     extension = ".png"
     sistemaoperativo = str(os.name)
@@ -75,10 +75,9 @@ def cantidad_oportunidades():
 
         ax.set_title("Etapas de las oportunidades")
 
-
     except:
         return "Error"
-    return generar_archivo(1)
+    return generar_archivo()
 
 
 def cantidad_oportunidades_por_prioridad():
@@ -105,7 +104,7 @@ def cantidad_oportunidades_por_prioridad():
     except:
         return "Error"
 
-    return generar_archivo(2)
+    return generar_archivo()
 
 
 def cantidad_oportunidades_por_ingreso():
@@ -127,4 +126,4 @@ def cantidad_oportunidades_por_ingreso():
     # Create names on the x-axis
     plt.yticks(y_pos, bars)
 
-    return generar_archivo(3)
+    return generar_archivo()
